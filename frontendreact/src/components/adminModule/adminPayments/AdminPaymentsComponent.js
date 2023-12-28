@@ -41,8 +41,19 @@ function AdminPaymentsComponent() {
           });
           totalPay += val.totalPrice;
         });
+        console.log("aaaaaaaaaaa",totalPay)
+        let tPrice=0;
+        data.data?.forEach((val) => {
+
+          if (val.totalPrice !== undefined) {
+      
+              tPrice += val.totalPrice;
+      
+          }
+      
+      });
         setusersData([...tempArray]);
-        settotalPayment(formatIndianCurrency(totalPay));
+        settotalPayment(tPrice);
 
         setFilteredPaymentData([...tempArray]);
       }

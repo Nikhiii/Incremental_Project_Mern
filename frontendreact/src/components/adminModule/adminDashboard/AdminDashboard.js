@@ -28,7 +28,11 @@ function AdminDashboard() {
         //error
       } else {
         let tPrice = 0;
-        data.data?.forEach((val) => (tPrice += val.totalPrice));
+        data.data?.forEach((val) => {
+          if (val.totalPrice !== undefined) {
+              tPrice += val.totalPrice;
+          }
+      });
         settotalAmount(formatIndianCurrency(tPrice));
       }
     } else if (error) {

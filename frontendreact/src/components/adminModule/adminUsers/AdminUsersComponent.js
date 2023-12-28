@@ -20,6 +20,7 @@ function AdminUsersComponent() {
 
 	const getAllUsers = async () => {
 		const { data, error } = await getUsersInfo();
+    console.log("bbbbbbbb",data);
 		if (data) {
 			if (data.error) {
 				//error
