@@ -1,9 +1,6 @@
 const userModel = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { candidateMail } = require("../helper/mailHelper");
-const { inviteEmail, sendOTP } = require("../helper/mailHelper");
-const { createNewOTP, verifyOTP } = require("../helper/otpHelper");
 
 let JWTSECRETKEY = "TECHNOELEVATEDEVELOPMENTTEAM";
 

@@ -2,7 +2,6 @@ const express=require('express');
 const UserRouter=express.Router();
 
 const userController=require('../controller/users');
-const cartController = require('../controller/cart');
 const orderController = require('../controller/order');
 const paymentController = require('../controller/payment');
 const ratingController = require('../controller/ratings');
