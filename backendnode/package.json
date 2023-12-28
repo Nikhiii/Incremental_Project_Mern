@@ -4,6 +4,7 @@
   "description": "this is the application for REST architecture",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest --forceExit"
   },
   "author": "abhishek",
