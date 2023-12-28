@@ -150,7 +150,8 @@ function TableSelection() {
       } else {
         //toast
         addToast(data.message, { appearance: "success" });
-        localStorage.setItem("tableno", JSON.stringify(data?.data[0].tableNo));
+        console.log("aaaaaa",data);
+        localStorage.setItem("tableno", JSON.stringify(data?.data.tableNo));
         navigate("/user/orders");
       }
     } else if (error) {
