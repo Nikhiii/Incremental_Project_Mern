@@ -6,6 +6,7 @@ const { inviteEmail, sendOTP } = require("../helper/mailHelper");
 const { createNewOTP, verifyOTP } = require("../helper/otpHelper");
 
 let JWTSECRETKEY = "TECHNOELEVATEDEVELOPMENTTEAM";
+
 //Registartion logic
 const register = async (req, res, next) => {
   let { name, email, phoneNo, password, role } = req.body;
@@ -38,18 +39,6 @@ const register = async (req, res, next) => {
 
       const userData = await userModel.findOne({ email: email });
 
-      // const { fullHash, otp } = createNewOTP(email);
-      // await sendOTP(email, otp, name);
-
-      // userData.hashedOTP = fullHash;
-      // await userData.save();
-
-      // res.status(200).json({
-      //   error: false,
-      //   message: `OTP sent to ${email}`,
-      //   data: null,
-      // });
-
       res.json({
         error: false,
         message: "User Registration Successfull",
@@ -72,30 +61,16 @@ const login = async (req, res, next) => {
 
       if (isPasswordMatch) {
         let payload = { email };
-        // const token = await jwt.sign(payload, JWTSECRETKEY, {
-        //   expiresIn: "20m",
-        // });
 
         res.json({
           error: false,
           message: "Login Successfully",
-          // token:token,
           role: userData.role,
           email: userData.email,
           name: userData.name,
           userData: userData,
         });
 
-        // const { fullHash, otp } = createNewOTP(email);
-        // await sendOTP(email, otp, userData.name);
-
-        // userData.hashedOTP = fullHash;
-        // await userData.save();
-
-        // res.status(200).json({
-        //   error: false,
-        //   message: `OTP sent to ${email}`,
-        // });
       } else {
         res.json({
           error: true,

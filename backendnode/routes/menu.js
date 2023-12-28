@@ -29,18 +29,5 @@ menuRouter.get('/getAllUsers',userController.getAllUsers);
 
 //Getting all payment details
 menuRouter.get('/getAllPayments',paymentController.getAllPayments);
-//Getting payment details by customer email
-menuRouter.post('/getPaymentByEmail',paymentController.getPaymentByEmail);
-
-//updating the order
-menuRouter.put('/editOrder/:_id',orderController.editOrder);
-//view all the orders
-menuRouter.get('/viewOrder',orderController.viewAllOrders);
-
-//Getting rating details
-menuRouter.get('/getRatings',ratingController.getAllRatings);
-//Getting rating details
-menuRouter.post('/getRatingsByEmail',ratingController.getRatingsByEmail);
-
 
 module.exports = menuRouter;

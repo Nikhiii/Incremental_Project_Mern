@@ -18,20 +18,9 @@ UserRouter.post('/login',userController.login);
 UserRouter.put('/resetPassword',userController.resetPassword);
 
 
-//getting user by the userID
-UserRouter.get('/getUser/:_id',userController.getUserById);
-
-//Updating Use Profile
-UserRouter.put('/editUser/:_id',userController.editUserProfile);
-
-//Adding menu items to a cart
-UserRouter.post('/cart',cartController.addToCart);
-UserRouter.get('/cartDetail/:customerName',cartController.cartDetail);
-
 //Creating the order
 UserRouter.post('/order',orderController.createOrder);
-//editing an order
-UserRouter.put('/order/modify/:_id',orderController.editOrder);
+
 //review the order
 UserRouter.get('/order/review/:customerId',orderController.reviewOrder);
 
