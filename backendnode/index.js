@@ -38,36 +38,22 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors(corsOptions)); // Use this after the variable declaration
-
-mongoose
-  .connect("mongodb://127.0.0.1:27017/directbydb")
-  .then(() => {
-    console.log("Database connected");
-    app.listen(8080, () => {
-      console.log("API is running in PORT:8080");
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  
-
-// const dbUrl = "mongodb://127.0.0.1:27017/iamneo";
-// // const dbUrl ="mongodb+srv://abhishek:abhishek03@democluster.9m513.mongodb.net/iamneoFoodApp?retryWrites=true&w=majority";
-// mongoose.connect(
-//   dbUrl,
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   },
-//   (err) => {
-//     if (!err) {
-//       console.log("DB connected Successfully");
-//     } else {
-//       console.log("DB not connected");
-//     }
-//   }
-// );
+const dbUrl = "mongodb://127.0.0.1:27017/iamneo";
+// const dbUrl ="mongodb+srv://abhishek:abhishek03@democluster.9m513.mongodb.net/iamneoFoodApp?retryWrites=true&w=majority";
+mongoose.connect(
+  dbUrl,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (!err) {
+      console.log("DB connected Successfully");
+    } else {
+      console.log("DB not connected");
+    }
+  }
+);
 
 //cors level middleware
 app.use(cors());
