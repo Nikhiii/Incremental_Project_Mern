@@ -90,56 +90,6 @@ const login = async (req, res, next) => {
   }
 };
 
-//send otp for forgot password logic
-const forgotPasswordSendOTP = async (req, res, next) => {
-  let { email } = req.body;
-  try {
-    const userData = await userModel.findOne({ email }).lean();
-    if (userData) {
-      const { fullHash, otp } = createNewOTP(email);
-      await sendOTP(email, otp, userData.name);
-
-      userData.hashedOTP = fullHash;
-      await userData.save();
-
-      res.status(200).json({
-        error: false,
-        message: `OTP sent to ${email}`,
-      });
-    } else {
-      res.status(401).json({
-        error: true,
-        message: "User Not Registered",
-        data: null,
-      });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-//Email verification for reset password
-const verifyEmail = async (req, res, next) => {
-  let { email } = req.body;
-
-  try {
-    const user = await userModel.findOne({ email }).lean();
-    if (user) {
-      res.status(200).json({
-        error: false,
-        message: `User verified with the email id: ${email}`,
-      });
-    } else {
-      res.status(401).json({
-        error: true,
-        message: "User Not Registered",
-        data: null,
-      });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
 //Reset password
 const resetPassword = async (req, res, next) => {
@@ -179,27 +129,6 @@ const resetPassword = async (req, res, next) => {
   }
 };
 
-//getting user by the ID
-const getUserById = async (req, res, next) => {
-  let { _id } = req.params;
-  try {
-    const user = await userModel.findOne({ _id }, { password: 0 }).lean();
-    if (user) {
-      res.json({
-        error: false,
-        message: "User found successfully",
-        data: user,
-      });
-    } else {
-      res.status(400).json({
-        error: false,
-        message: "User not found ",
-      });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
 
 //Getting all the users
 const getAllUsers = async (req, res, next) => {
@@ -224,114 +153,10 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-//editing user profile
-const editUserProfile = async (req, res, next) => {
-  try {
-    let { name, email, phoneNo, password } = req.body;
-    let { _id } = req.params;
-
-    const saltrounds = 10;
-    //salt of the password
-    const salt = await bcrypt.genSalt(saltrounds);
-
-    //hash password
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = await userModel.findOne({ _id }).lean();
-    if (user) {
-      await userModel.updateOne(
-        { _id },
-        {
-          $set: {
-            name,
-            email,
-            phoneNo,
-            password: hashedPassword,
-          },
-        }
-      );
-    } else {
-      res.status(400).json({
-        error: false,
-        message: "User not found ",
-      });
-    }
-    res.json({
-      error: false,
-      message: "User Profile has been updated successfully",
-      data: null,
-    });
-  } catch (err) {
-    next(err);
-  }
-};
-
-const candidateVerification = async (req, res, next) => {
-  try {
-    const { email, otp } = req.body;
-    const userData = await userModel.findOne({ email });
-    console.log("userdata----", userData);
-
-    if (!userData) {
-      return res
-        .status(502)
-        .json({ error: true, message: "User is not found" });
-    }
-    const verified = await verifyOTP(userData.hashedOTP, otp);
-
-    if (verified) {
-      userData.verified = true;
-      await userData.save();
-
-      let payload = { email, otp };
-      // const token = await jwt.sign(payload, JWTSECRETKEY, {
-      //   expiresIn: "5m",
-      // });
-
-      res.status(200).json({
-        error: false,
-        message: "OTP Verified Successfully",
-        token,
-        role: userData.role,
-      });
-    } else {
-      res.status(502).json({ error: true, message: "OTP verfication failed" });
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-const resendOTP = async (req, res, next) => {
-  try {
-    const { email } = req.body;
-    const candidate = await Candidate.findOne({ email });
-    if (!candidate) {
-      return res
-        .status(502)
-        .json({ error: true, message: "Candidate not found" });
-    }
-    const { fullHash, otp } = createNewOTP(email);
-    await sendOTP(email, otp, candidate.fullName);
-
-    candidate.hashedOTP = fullHash;
-    await candidate.save();
-
-    res.status(200).json({ error: false, message: "OTP sent successfully" });
-  } catch (err) {
-    next(err);
-  }
-};
 
 module.exports = {
   register,
   login,
-  getUserById,
-  editUserProfile,
-  candidateVerification,
-  resendOTP,
   getAllUsers,
-  forgotPasswordSendOTP,
-  verifyEmail,
   resetPassword,
 };

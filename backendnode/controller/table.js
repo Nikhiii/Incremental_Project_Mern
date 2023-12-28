@@ -121,15 +121,6 @@ const bookTable = async (req,res,next)=>{
     }
 }
 
-//free table logic
-const freeTable = async ()=>{
-   
-}
-
-
-
-
-
 module.exports = {
     addTable,
     getTableStatus,
