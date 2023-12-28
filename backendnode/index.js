@@ -6,28 +6,7 @@ const tableModel = require("./models/table");
 var Cronjob = require("cron").CronJob;
 const app = express();
 
-// const job = new Cronjob(
-//     // '*/4 * * * * *',
-//     '0 * * * *',
-//     function(){
-//         // update()
-//         // console.log('hi');
-//     },
-//     null,
-//     true,
-// )
-// job.start()
 
-// async function update (){
-//     console.log('hi');
-//     await tableModel.updateMany(
-//         {},{
-//             $set:{
-//                 isAvailable:true
-//             }
-//         }
-//     )
-// }
 const corsOptions = {
   origin: "*",
   credentials: true, //access-control-allow-credentials:true
