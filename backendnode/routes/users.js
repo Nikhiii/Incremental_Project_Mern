@@ -13,13 +13,7 @@ UserRouter.post('/register',userController.register);
 
 //LogIn
 UserRouter.post('/login',userController.login);
-//Otp verification for login
-UserRouter.post('/verifyotp',userController.candidateVerification);
 
-//send otp for forgot password
-UserRouter.post('/forgotPassOTP',userController.forgotPasswordSendOTP);
-//verify email for forgot password
-UserRouter.post('/verifyEmail',userController.verifyEmail);
 //reset password
 UserRouter.put('/resetPassword',userController.resetPassword);
 

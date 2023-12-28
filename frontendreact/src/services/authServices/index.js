@@ -27,16 +27,5 @@ const forgotPasswordService = async (payload) => {
   }
 };
 
-const verifyOTPservice = async (payload) => {
-  try {
-    const { data } = await serviceUtil.post(`/user/verifyotp`, payload);
-    return { data };
-  } catch (error) {
-    return { error };
-  }
-};
 
-
-
-
-export { loginService, registerService, verifyOTPservice,forgotPasswordService };
+export { loginService, registerService,forgotPasswordService };
