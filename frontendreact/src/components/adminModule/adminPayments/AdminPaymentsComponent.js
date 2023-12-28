@@ -28,7 +28,7 @@ function AdminPaymentsComponent() {
             col1: val.customerName,
             col2: val.email,
             col3: val.phNo,
-            col4: `${formatIndianCurrency(val.totalPrice)}/-`,
+            col4: `${(val.totalPrice)}/-`,
             col5: (
               <p
                 style={{
